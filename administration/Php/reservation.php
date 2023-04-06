@@ -32,17 +32,17 @@
         <select name="cbofilm" style="background-color:#262A2B; color:white">
 		<?php
 		$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
-		$req = $bdd->prepare("select * from projection natural join film");
+		$req = $bdd->prepare("select distinct titre, projection.nofilm from film natural join projection");
 		$req->execute();
 		$leslignes = $req->fetchall();
         echo ("<form>");
 		echo("<option value='' disabled>---Veuillez séléctionner un film---</option>");
 		foreach ($leslignes as $uneligne)
 		{
-            if (isset($_POST["cbofilm"])==true && $_POST["cbofilm"]==$uneligne["noproj"])
-                echo("<option value='$uneligne[noproj]' selected>$uneligne[titre]</option>");
+            if (isset($_POST["cbofilm"])==true && $_POST["cbofilm"]==$uneligne["nofilm"])
+                echo("<option value='$uneligne[nofilm]' selected>$uneligne[titre]</option>");
             else
-                echo("<option value='$uneligne[noproj]'>$uneligne[titre]</option>");
+                echo("<option value='$uneligne[nofilm]'>$uneligne[titre]</option>");
         }
 		$req->closeCursor();
 		$bdd=null;
@@ -78,7 +78,7 @@
 
 
             $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
-            $req = $bdd->prepare("select * from projection where noproj='$_POST[cbofilm]'");
+            $req = $bdd->prepare("select * from projection where nofilm='$_POST[cbofilm]'");
             $req->execute();
             $leslignes = $req->fetchall();
 
