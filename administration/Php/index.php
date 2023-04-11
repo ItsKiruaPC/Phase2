@@ -17,16 +17,7 @@
 			<a href="planning.php">Planning</a>
 			<a href="reservation.php">Réservations</a>
 			<a href="projection.php">Projection</a>
-				<!-- <div class="dropdown">
-					<button class="dropbtn">Plus</button>
-				<div class="dropdown-content">
-					<a href="#">Lien 1</a>
-					<a href="#">Lien 2</a>
-					<a href="#">Lien 3</a>
-				</div>
-				</div> -->
 		</div>
-		<div class="blur"></div>
 		<div class="boite">
 		<?php
 				$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
@@ -34,25 +25,27 @@
         		$req = $bdd->prepare($requete);
 				$req->execute();
 				$leslignes = $req->fetchall();
-				$i=1;
 				foreach ($leslignes as $uneligne)
 				{
 					?>
+
 					<div class="box1">
-					<div class="minibox1">
+						<div class="minibox1">
 
 					<?php
-					echo("<a href='https://cas.eclat-bfc.fr/login'><img class='afficher' src='../Images/$uneligne[imgaffiche]' ></a>");
+
+					echo ("<img class='afficher' src='../Images/$uneligne[imgaffiche]' ></a>");
 					echo ("<h1>$uneligne[titre]</h1></a><br>");
 					echo ("<p>Acteurs: $uneligne[acteurs]</p>");
 					echo ("<p>Réalisateurs: $uneligne[realisateurs]</p>");
 					echo ("<p>Durée: $uneligne[duree]</p>");
 					echo ("<p>$uneligne[synopsis]</p>");
+
 					?>
+						</div>
 					</div>
-					</div>
+
 					<?php
-					$i=$i+1;
 				}
 				$req->closeCursor();
 				$bdd=null;

@@ -53,11 +53,16 @@ body
 {
     text-align: center;
 }
+.afficher
+{
+    height:200px;
+    width:140px;
+}
 .tableau
 {
     margin: 0px auto;
     margin-top: 150px;
-    font-size: 35px;
+    font-size: 20px;
 }
 .banner
 {
@@ -105,11 +110,10 @@ body
     color: white;
     font-family: Inter,sans-serif;
     display: flex;
-    /* padding-left: 128vh; */
     align-items: center;
-    position: fixed;
-    margin-top: 360px;
+    margin-bottom: 50px;
     justify-content: end;
+    /* position: fixed; */
 }
 .texte-reseau
 {

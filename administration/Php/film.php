@@ -17,14 +17,7 @@
 			<a href="planning.php">Planning</a>
 			<a href="reservation.php">Réservations</a>
 			<a href="projection.php">Projection</a>
-				<!-- <div class="dropdown">
-					<button class="dropbtn">Plus</button>
-				<div class="dropdown-content">
-					<a href="#">Lien 1</a>
-					<a href="#">Lien 2</a>
-					<a href="#">Lien 3</a>
-				</div>
-				</div> -->
+
 		</div>
 		<div class="warp">
 		<form method="post" action="film.php" class = form1>
@@ -94,6 +87,7 @@
 				$leslignes = $req->fetchall();
 				echo ("<table class ='tableau' border=1>");
 				echo ("<tr>");
+					echo ("<th>Affiche</th>");
 					echo ("<th>Titre</th>");
 					echo ("<th>Auteur(s)</th>");
 					echo ("<th>Réalisateur(s)</th>");
@@ -107,6 +101,7 @@
 
 					echo ("<tbody>
 					<tr>
+					<td><img class='afficher' src='../Images/$uneligne[imgaffiche]'> </td>
 					<td>$uneligne[titre] </td>
 					<td>$uneligne[acteurs] </td>
 					<td>$uneligne[realisateurs] </td>
@@ -117,6 +112,7 @@
 				}
 				echo ("</tr>");
 				echo ("</tbody>");
+				echo ("</table>");
 				$req->closeCursor();
 				$bdd=null;
 			}
