@@ -86,24 +86,23 @@ body
 }
 .box1
 {
-    height: 420px;
+    height: 500px;
     flex-direction: row;
     border-radius: 10px;
     text-align:center;
     justify-content: space-between;
-    
 }
 .minibox1
 {
-
+    height: 500px;
     padding: 20px;
     width: 330px;
 }
 .minibox1 img
 {
     border: 1px black solid;
-    height: 350px;
-    width: 250px;
+    height: 470px;
+    width: 350px;
     border-radius: 10px;
 
 }
@@ -126,7 +125,7 @@ body
     height:1143px;
     width:743px;
 }
-.home:default
+.home:active
 {
     background-color: gold;
 }
@@ -136,28 +135,14 @@ body
     height: 120px;
     padding-top: 25px;
 }
-.footer1
-{
-    margin-top: 250px;
-    text-align: center;
-}
-.footer1 li
-{
-    padding-bottom: 25px;
-    float: left;
-    padding: 14px 16px;
-    list-style-type: none;
-    text-align: center;
-    background-color: #4e4e4e;
-}
 .last-social
 {
     background-color: rgb(27, 27, 27);
     color: white;
     font-family: Inter,sans-serif;
     display: flex;
-    padding-left: 435px;
-    margin-top: 250px;
+    align-items: center;
+    margin-top: 500px;
     justify-content: end;
 }
 .texte-reseau
