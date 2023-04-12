@@ -11,7 +11,6 @@
 body
 {
     background-color: rgb(15, 15, 15);
-    color: gold;
     
 }
 .titre1
@@ -60,15 +59,18 @@ body
 
 .boite
 {
-    animation: TransitionIn2 1.5s;
+    animation: TransitionIn2 1.2s;
     display: flex;
+    justify-content: center;
+    align-items: center;
     justify-content: space-between;
-
+    padding: 20px;
 }
+
 @keyframes TransitionIn2
 {
     from {
-        padding-left: 1000px;
+        padding-left: 1500px;
     }
     to {
         
@@ -86,25 +88,70 @@ body
 }
 .box1
 {
+    position: relative;
     height: 500px;
+    width: 350px;
     flex-direction: row;
     border-radius: 10px;
     text-align:center;
-    justify-content: space-between;
+    overflow: hidden;
+    
 }
-.minibox1
+.afficher img
 {
-    height: 500px;
-    padding: 20px;
-    width: 330px;
-}
-.minibox1 img
-{
-    border: 1px black solid;
-    height: 470px;
+    position: relative;
+    height: 480px;
     width: 350px;
-    border-radius: 10px;
+    overflow: hidden;
+}
 
+.box1 .afficher
+{
+    overflow: hidden;
+}
+
+.box1 .afficher::before
+{
+    content: '';
+    position: absolute;
+    opacity: 0%;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to top,red, #4d9ad6, transparent);
+    transition: 0.5s;
+    z-index: 1;
+}
+.box1:hover .afficher::before
+{
+    opacity: 100%;
+    
+}
+.box1 .afficher img
+{
+    width: 100%;
+    transition: 0.5s;
+    
+}
+.box1:hover .afficher img
+{
+    transform: translateY(-50px);
+    filter: blur(5px);
+}
+.box1 .minibox1
+{
+    position: absolute;
+    opacity: 0%;
+    bottom: -500px;
+    padding-top: 30px;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 2;
+    transition: 0.5s;
+}
+.box1:hover .minibox1
+{
+    opacity: 100%;
+    bottom: 0;
 }
 .banner
 {
@@ -119,11 +166,6 @@ body
     height: 50px;
     padding-top:40px;
     padding-right:20px;
-}
-.afficher
-{
-    height:1143px;
-    width:743px;
 }
 .home:active
 {
@@ -142,7 +184,7 @@ body
     font-family: Inter,sans-serif;
     display: flex;
     align-items: center;
-    margin-top: 500px;
+    margin-top: 100px;
     justify-content: end;
 }
 .texte-reseau

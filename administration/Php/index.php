@@ -30,19 +30,20 @@
 					?>
 
 					<div class="box1">
-					<div class="minibox1">
+					
 
 					<?php
-
-					echo ("<a href='$uneligne[infofilm]' target='_blank'><img class='afficher' src='../Images/$uneligne[imgaffiche]' ></a>");
+					?><div class="afficher"><?php
+					echo ("<a href='$uneligne[infofilm]' target='_blank'><img src='../Images/$uneligne[imgaffiche]' ></a>");
+					?></div><div class="minibox1"><?php
 					echo ("<h1>$uneligne[titre]</h1></a><br>");
 					echo ("<p><h2>Réalisateurs:</h2> $uneligne[realisateurs]</p><br/>");
 					echo ("<p><h2>Acteurs:</h2> $uneligne[acteurs]</p><br/>");
 					echo ("<p><h2>Durée:</h2> $uneligne[duree]</p><br/>");
-					echo ("<p>$uneligne[synopsis]</p>");
-					
+					echo ("<p><h2>Synopsis: </h2>$uneligne[synopsis]</p>");
+					?></div><?php
 					?>
-					</div>
+					
 					</div>
 
 					<?php
