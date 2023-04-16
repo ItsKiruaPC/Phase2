@@ -184,7 +184,7 @@ body
     font-family: Inter,sans-serif;
     display: flex;
     align-items: center;
-    margin-top: 100px;
+    margin-top: 20px;
     justify-content: end;
 }
 .texte-reseau
@@ -194,19 +194,39 @@ body
 }
 .texte-reseau p
 {
-    margin-top: 10px
+    justify-content: center;
+    align-items: center;
 }
 .reseaux-logo a
 {
     margin-right: 30px;
     font-size: 40px;
-    color: white !important;
+    color: white;
+
 }
 .reseaux-logo ion-icon:hover
 {
-    font-size: 45px;
+    font-size: 43px;
 }
 .reseaux-logo ion-icon
 {
-    margin-top: 5px;
+    margin-top: 7px;
+}
+.reseaux-logo a:hover:nth-child(1)
+{
+    background: transparent;
+    color: blue;
+}
+.reseaux-logo a:hover:nth-child(2)
+{
+    background: transparent;
+    color: orange
+}.reseaux-logo a:hover:nth-child(3)
+{
+    background: transparent;
+    color: skyblue;
+}.reseaux-logo a:hover:nth-child(4)
+{
+    background: transparent;
+    color: red;
 }

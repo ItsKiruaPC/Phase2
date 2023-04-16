@@ -7,7 +7,7 @@
 	</head>
 	<body>
     <div class=banner>
-        <img class="logo" src="../Images/Pathe_logo.png">
+		<a href="index.php"><img class="logo" src="../Images/Pathe_logo.png"></a>
         <h1 class="titre1">Cinéma Pathé Gaumont</h1><br>
 		<a href="projection.php"><img src="../Images/login.png" class="login"></a>
     </div>
@@ -17,14 +17,6 @@
 			<a href="planning.php">Planning</a>
 			<a href="reservation.php">Réservations</a>
 			<a href="projection.php">Projection</a>
-				<!-- <div class="dropdown">
-					<button class="dropbtn">Plus</button>
-				<div class="dropdown-content">
-					<a href="#">Lien 1</a>
-					<a href="#">Lien 2</a>
-					<a href="#">Lien 3</a>
-				</div>
-				</div> -->
 		</div>
 		<form class = form1 method="post" action="planning.php">
 		<center>Veuillez renseigner une date de planning : <input type="date" name="txtdate" />
@@ -44,12 +36,11 @@
 					echo ("<th>Titre</th>");
 					echo ("<th>Salle</th>");
 					echo ("<th>Horaire</th>");
-					echo ("</tr>");
-					echo("<tbody>");
-					echo ("<tr>");
+				echo ("</tr>");
+				echo("<tbody>");
+				echo ("<tr>");
 				foreach ($leslignes as $uneligne)
 				{
-
 					echo ("<tbody>
 					<tr>
 					<td>$uneligne[titre] </td>

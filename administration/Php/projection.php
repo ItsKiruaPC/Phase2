@@ -7,7 +7,7 @@
     </head>
     <body>
     <div class=banner>
-        <img class="logo" src="../Images/Pathe_logo.png">
+        <a href="index.php"><img class="logo" src="../Images/Pathe_logo.png"></a>
         <h1 class="titre1">Cinéma Pathé Gaumont</h1><br>
         <a href="projection.php"><img src="../Images/login.png" class="login"></a>
     </div>
