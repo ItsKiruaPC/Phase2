@@ -58,13 +58,26 @@ body
     padding-top:150px;
     font-size:25px;
 }
+.afficher
+{
+    height:150px;
+    width:100px;
+    text-align: center;
+}
 .tableau
 {
     margin-top: 50px;
+    
 }
 .tableau tr
 {
     font-size:25px;
+    text-align: center;
+    
+}
+.tableau td
+{
+    padding: 10px;
 }
 .home:active
 {

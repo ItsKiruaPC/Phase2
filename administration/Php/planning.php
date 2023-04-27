@@ -34,8 +34,10 @@
 				$leslignes = $req->fetchall();
 				echo ("<center><table class ='tableau' border=1>");
 				echo ("<tr>");
+					echo ("<th>Affiche</th>");
 					echo ("<th>Titre</th>");
 					echo ("<th>Salle</th>");
+					echo ("<th>Date</th>");
 					echo ("<th>Horaire</th>");
 				echo ("</tr>");
 				echo("<tbody>");
@@ -44,9 +46,11 @@
 				{
 					echo ("<tbody>
 					<tr>
+					<td><img class='afficher' src='../Images/$uneligne[imgaffiche]'></td>
 					<td>$uneligne[titre] </td>
 					<td>$uneligne[nosalle] </td>
 					<td>$uneligne[dateproj] </td>
+					<td>$uneligne[heureproj] </td>
 					</tr>
 					</tbody>");
 				}
@@ -71,5 +75,6 @@
 			</div>
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+		
     </body>
 </html>

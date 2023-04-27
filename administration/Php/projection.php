@@ -9,7 +9,7 @@
     <div class=banner>
         <a href="index.php"><img class="logo" src="../Images/Pathe_logo.png"></a>
         <h1 class="titre1">Cinéma Pathé Gaumont</h1><br>
-        <a href="projection.php"><img src="../Images/login.png" class="login"></a>
+        <img src="../Images/login.png" class="login" id="easter">
     </div>
         <div class="navbar">
             <a href="index.php" class="home">Accueil</a>
@@ -25,14 +25,14 @@
                 <center><select name="cbofilm" style="background-color:#262A2B; color:white" required></center>
                     <?php
                     $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
-                    $req = $bdd->prepare("select distinct titre, projection.nofilm from film natural join projection");
+                    $req = $bdd->prepare("select distinct titre, film.* from film natural join concerner");
                     $req->execute();
                     $leslignes = $req->fetchall();
                     echo("<option value=''>-------Veuillez séléctionner un film-------</option>");
                     foreach ($leslignes as $uneligne)
                     {
                         if (isset($_POST["cbofilm"])==true && $_POST["cbofilm"]==$uneligne["nofilm"])
-                            echo("<option value='$uneligne[nofilm]' selected>$uneligne[titre]</option>");
+                            echo("<option value='$uneligne[nofilm]'  selected>$uneligne[titre]</option>");
                         else
                             echo("<option value='$uneligne[nofilm]'>$uneligne[titre]</option>");
                     }
@@ -100,15 +100,17 @@
                     if (isset($_POST["btnsupprimer"]) == true)
                     {
                         $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
-                        $req = $bdd->prepare("delete from projection where nofilm=:film and nosalle=:salle and dateproj=:date");
+                        $req = $bdd->prepare("delete from projection where nofilm=:film and nosalle=:salle and dateproj=:date and heureproj=:heure");
 
                         $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
                         $_POST["cbosalle"]=htmlspecialchars($_POST["cbosalle"]);
                         $_POST["txtdate"]=htmlspecialchars($_POST["txtdate"]);
+                        $_POST["txtheure"]=htmlspecialchars($_POST["txtheure"]);
 
                         $req->bindParam(':film',$_POST["cbofilm"], PDO::PARAM_INT);
                         $req->bindParam(':salle',$_POST["cbosalle"], PDO::PARAM_STR);
                         $req->bindParam(':date',$_POST["txtdate"], PDO::PARAM_STR);
+                        $req->bindParam(':heure',$_POST["txtheure"], PDO::PARAM_STR);
                         $reponse = $req->execute();
 
                         if ($reponse == true)
@@ -222,5 +224,6 @@
 			</div>
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script src="../Js/app.js"></script>
     </body>
 </html>

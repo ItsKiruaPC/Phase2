@@ -58,38 +58,95 @@
 		
 		?>
 		</div>
-		</select>
-		<input type="submit" name="btnvalider" value="Valider" /></br>
+		</select><br><br>
+		<input type="submit" name="btnvalider" class="accepte" value="Valider" />
+		<input type="submit" name="btntout" class="accepte" style="margin-left: 20px;" value="Afficher tout les films" /></br>
 		</form>
 		<?php
+		if (isset($_POST["btntout"]) == true)
+		{
+			$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+			$_POST["txttitre"]=htmlspecialchars($_POST["txttitre"]);
+			$requete = ("select Distinct nofilm, film.*  from film natural join concerner natural join genre where titre like'%$_POST[txttitre]%'");
+			$req = $bdd->prepare($requete);
+			$req->execute();
+			$leslignes = $req->fetchall();
+			echo ("<table class ='tableau' border=1>");
+			echo ("<tr>");
+			echo ("<th>Affiche</th>");
+			echo ("<th>Titre</th>");
+			echo ("<th>Auteur(s)</th>");
+			echo ("<th>Réalisateur(s)</th>");
+			echo ("<th>Synopsis</th>");
+			echo ("<th>Durée(s)</th>");
+			echo ("</tr>");
+			echo("<tbody>");
+			echo ("<tr>");
+
+			foreach ($leslignes as $uneligne)
+			{
+				echo ("<tbody>
+				<tr>
+				<td><img class='afficher' src='../Images/$uneligne[imgaffiche]'> </td>
+				<td>$uneligne[titre] </td>
+				<td>$uneligne[acteurs] </td>
+				<td>$uneligne[realisateurs] </td>
+				<td>$uneligne[synopsis] </td>
+				<td>$uneligne[duree] </td>
+				</tr>
+				</tbody>");
+			}
+
+			echo ("</tr>");
+			echo ("</tbody>");
+			echo ("</table>");
+			$req->closeCursor();
+			$bdd=null;
+		}
 			if (isset($_POST["btnvalider"]) == true)
 			{
 				$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
 				$_POST["txttitre"]=htmlspecialchars($_POST["txttitre"]);
-				$requete = "select Distinct nofilm, film.*  from film natural join concerner natural join genre where titre like '$_POST[txttitre]%'";
-				if ($_POST["txtacteur"]!="")
+				$requete = ("select Distinct nofilm, film.*  from film natural join concerner natural join genre ");
+				if ($_POST["txttitre"]!="")
+				{
+					$_POST["txttitre"]=htmlspecialchars($_POST["txttitre"]);
+					$requete=$requete . " where titre like'%$_POST[txttitre]%' ";
+				}
+				else if ($_POST["txtacteur"]!="")
 				{
 					$_POST["txtacteur"]=htmlspecialchars($_POST["txtacteur"]);
 					$requete=$requete . " and acteurs like'%$_POST[txtacteur]%' ";
 				}
-				if ($_POST["txtrealisateur"]!="")
+				else if ($_POST["txtrealisateur"]!="")
 				{
 					$_POST["txtrealisateur"]=htmlspecialchars($_POST["txtrealisateur"]);
 					$requete=$requete . " and realisateurs like'%$_POST[txtrealisateur]%' ";
 				}
-				if ($_POST["cbopublic"]!="")
+				else if ($_POST["cbopublic"]!="")
 				{
 					$_POST["cbopublic"]=htmlspecialchars($_POST["cbopublic"]);
 					$requete=$requete . " and nopublic = '$_POST[cbopublic]' ";
 				}
-				if ($_POST["cbogenre"]!="")
+				else if ($_POST["cbogenre"]!="")
 				{
 					$_POST["cbogenre"]=htmlspecialchars($_POST["cbogenre"]);
 					$requete=$requete . " and nogenre = '$_POST[cbogenre]' ";
 				}
+				else
+				{
+					$_POST["txttitre"]=htmlspecialchars($_POST["txttitre"]);
+					$requete=$requete . " where titre is null ";
+				}
         		$req = $bdd->prepare($requete);
 				$req->execute();
 				$leslignes = $req->fetchall();
+				if (ctype_space($_POST["txttitre"]) || $_POST["txttitre"] == null)
+				{
+					echo ("<br><h3><label style='margin-left: 20px;' >Le film demandé n'est pas disponible</label></h3>");
+				}
+				else
+				{
 				echo ("<table class ='tableau' border=1>");
 				echo ("<tr>");
 					echo ("<th>Affiche</th>");
@@ -118,6 +175,7 @@
 				echo ("</tr>");
 				echo ("</tbody>");
 				echo ("</table>");
+				}
 				$req->closeCursor();
 				$bdd=null;
 			}

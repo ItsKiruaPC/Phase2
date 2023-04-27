@@ -104,6 +104,15 @@ body
     height: 120px;
     padding-top: 25px;
 }
+.accepte
+{
+    padding: 15px 35px 15px 35px;
+    background-color: #1F1F1F;
+    border: red 1px solid;
+    border-radius: 15px;
+    color: gold;
+    cursor: pointer;
+}
 .last-social
 {
     background-color: rgb(27, 27, 27);

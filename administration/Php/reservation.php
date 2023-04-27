@@ -55,10 +55,19 @@
             $reponse = $req->execute();
             $leslignes = $req->fetchColumn();
 
-            echo("<form method='post' action='reservation.php' class = form1>
-            Nom : <input type='text' name='txtnom' style='background-color:#7B7B7B; color:white'/></br></br>
-            Nombre de places : <input type='number' name='txtplace' value='1' min='1' max='$leslignes'  style='background-color:#7B7B7B; color:white'/></br></br>");
-            echo ("Place restantes : $leslignes");
+            
+            if ($leslignes == 0)
+            {
+                echo ("Quel dommage le film a été victime de son succée ¯\_(ツ)_/¯");
+            }
+            else
+            {
+                echo("<form method='post' action='reservation.php' class = form1>
+                Nom : <input type='text' name='txtnom' style='background-color:#7B7B7B; color:white'/></br></br>
+                Nombre de places : <input type='number' name='txtplace' value='1' min='1' max='$leslignes' style='background-color:#7B7B7B; color:white'/></br></br>");
+                echo ("Place restantes : $leslignes");
+            }
+            
             $req->closeCursor();
             $bdd=null;
         }
@@ -68,6 +77,10 @@
         <?php
         if (isset($_POST["btncherche"])==true)
         {
+            if ($leslignes == 0)
+            {}
+            else
+            {
             echo ("Veuillez séléctionner la date qui vous convient : ");
             echo ("<select name='cboseance' style='background-color:#7B7B7B; color:white'>");
 
@@ -90,7 +103,7 @@
             echo ("</select>
                     <input type='submit' name='btnvalider' value='Valider'/></br>");
         }
-
+    }
             $comb = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             $shfl = str_shuffle($comb);
             $pwd = substr($shfl,0,6);
@@ -155,8 +168,8 @@
 
             include('../phpqrcode/qrlib.php');
             $text="Film : $uneligne[titre]
-Nom : $_POST[txtnom]
-Mot de Passe : $pwd";
+            \nNom : $_POST[txtnom]
+            \nMot de Passe : $pwd";
             $folder="../Images/";
             $file_name="qr.png";
             $file_name=$folder.$file_name;
