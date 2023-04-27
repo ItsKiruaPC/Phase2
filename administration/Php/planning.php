@@ -27,6 +27,7 @@
 			if (isset($_POST["btnvalider"]) == true && $_POST["txtdate"] != "")
 			{
 				$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+				$_POST["txtdate"]=htmlspecialchars($_POST["txtdate"]);
 				$requete = "select * from projection natural join film where dateproj='$_POST[txtdate]'";
         		$req = $bdd->prepare($requete);
 				$req->execute();

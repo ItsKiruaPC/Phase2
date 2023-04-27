@@ -21,7 +21,7 @@
 		</div>
 		<div class="warp">
 		<form method="post" action="film.php" class = form1>
-		Titre : <input type="text" name="txttitre" /></br></br>
+		Titre : <input type='text' name='txttitre' /></br></br>
 		Acteur : <input type="text" name="txtacteur"/></br></br>
 		Réalisateur : <input type="text" name="txtrealisateur"/></br></br>
 		Public :
@@ -65,21 +65,26 @@
 			if (isset($_POST["btnvalider"]) == true)
 			{
 				$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+				$_POST["txttitre"]=htmlspecialchars($_POST["txttitre"]);
 				$requete = "select Distinct nofilm, film.*  from film natural join concerner natural join genre where titre like '$_POST[txttitre]%'";
 				if ($_POST["txtacteur"]!="")
 				{
+					$_POST["txtacteur"]=htmlspecialchars($_POST["txtacteur"]);
 					$requete=$requete . " and acteurs like'%$_POST[txtacteur]%' ";
 				}
 				if ($_POST["txtrealisateur"]!="")
 				{
+					$_POST["txtrealisateur"]=htmlspecialchars($_POST["txtrealisateur"]);
 					$requete=$requete . " and realisateurs like'%$_POST[txtrealisateur]%' ";
 				}
 				if ($_POST["cbopublic"]!="")
 				{
+					$_POST["cbopublic"]=htmlspecialchars($_POST["cbopublic"]);
 					$requete=$requete . " and nopublic = '$_POST[cbopublic]' ";
 				}
 				if ($_POST["cbogenre"]!="")
 				{
+					$_POST["cbogenre"]=htmlspecialchars($_POST["cbogenre"]);
 					$requete=$requete . " and nogenre = '$_POST[cbogenre]' ";
 				}
         		$req = $bdd->prepare($requete);

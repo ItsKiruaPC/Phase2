@@ -19,7 +19,6 @@
             <a href="projection.php">Projection</a>
         </div>
         <div class="boite1">
-            <!--tableau-->
             <div class="box1">
             <form method="post" action="projection.php" class="form1">
                 <center>Films</center></br>
@@ -72,6 +71,12 @@
                     {
                         $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
                         $req = $bdd->prepare("insert into projection (nofilm, nosalle, dateproj, heureproj, infoproj) values (:film, :salle, :date, :heure, :synop)");
+                        $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
+                        $_POST["cbosalle"]=htmlspecialchars($_POST["cbosalle"]);
+                        $_POST["txtdate"]=htmlspecialchars($_POST["txtdate"]);
+                        $_POST["txtheure"]=htmlspecialchars($_POST["txtheure"]);
+                        $_POST["txtinfo"]=htmlspecialchars($_POST["txtinfo"]);
+
                         $req->bindParam(':film',$_POST["cbofilm"], PDO::PARAM_INT);
                         $req->bindParam(':salle',$_POST["cbosalle"], PDO::PARAM_STR);
                         $req->bindParam(':date',$_POST["txtdate"], PDO::PARAM_STR);
@@ -96,6 +101,11 @@
                     {
                         $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
                         $req = $bdd->prepare("delete from projection where nofilm=:film and nosalle=:salle and dateproj=:date");
+
+                        $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
+                        $_POST["cbosalle"]=htmlspecialchars($_POST["cbosalle"]);
+                        $_POST["txtdate"]=htmlspecialchars($_POST["txtdate"]);
+
                         $req->bindParam(':film',$_POST["cbofilm"], PDO::PARAM_INT);
                         $req->bindParam(':salle',$_POST["cbosalle"], PDO::PARAM_STR);
                         $req->bindParam(':date',$_POST["txtdate"], PDO::PARAM_STR);

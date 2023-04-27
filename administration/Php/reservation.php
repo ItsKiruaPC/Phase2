@@ -27,7 +27,6 @@
 		$req = $bdd->prepare("select distinct titre, projection.nofilm from film natural join projection");
 		$req->execute();
 		$leslignes = $req->fetchall();
-        //echo ("<form>");
 		echo("<option value='' disabled>---Veuillez séléctionner un film---</option>");
 		foreach ($leslignes as $uneligne)
 		{
@@ -50,16 +49,16 @@
         <?php
         if (isset($_POST["btncherche"])==true)
         {
-            echo("<form method='post' action='reservation.php' class = form1>
-            Nom : <input type='text' name='txtnom' style='background-color:#7B7B7B; color:white'/></br></br>
-            Nombre de places : <input type='number' name='txtplace' value='1' min='1' style='background-color:#7B7B7B; color:white'/></br></br>");
-            echo ("Place restantes : ");
-
             $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+            $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
             $req = $bdd->prepare("select(select nbplaces from salle natural join projection where noproj='$_POST[cbofilm]') - COALESCE((select SUM(nbplaceresa) from reservation where noproj='$_POST[cbofilm]'),0) as 'Nombres de places'");
             $reponse = $req->execute();
             $leslignes = $req->fetchColumn();
-            echo $leslignes;
+
+            echo("<form method='post' action='reservation.php' class = form1>
+            Nom : <input type='text' name='txtnom' style='background-color:#7B7B7B; color:white'/></br></br>
+            Nombre de places : <input type='number' name='txtplace' value='1' min='1' max='$leslignes'  style='background-color:#7B7B7B; color:white'/></br></br>");
+            echo ("Place restantes : $leslignes");
             $req->closeCursor();
             $bdd=null;
         }
@@ -74,6 +73,7 @@
 
 
             $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+            $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
             $req = $bdd->prepare("select * from projection where nofilm='$_POST[cbofilm]'");
             $req->execute();
             $leslignes = $req->fetchall();
@@ -95,11 +95,16 @@
             $shfl = str_shuffle($comb);
             $pwd = substr($shfl,0,6);
         ?></div><?php
+        
 		if (isset($_POST["btnvalider"]) == true)
 		{
             $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
             $dateann = date("Y-m-d");
             $req = $bdd->prepare("insert into reservation (mdpresa, nomclient, dateresa, nbplaceresa, noproj) values (:pwd, :nom, :seance, :place, :film)");
+            $_POST["txtnom"]=htmlspecialchars($_POST["txtnom"]);
+            $_POST["cboseance"]=htmlspecialchars($_POST["cboseance"]);
+            $_POST["txtplace"]=htmlspecialchars($_POST["txtplace"]);
+            $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
             $req->bindParam(':pwd',$pwd, PDO::PARAM_STR);
             $req->bindParam(':nom',$_POST["txtnom"], PDO::PARAM_STR);
             $req->bindParam(':seance',$_POST["cboseance"], PDO::PARAM_STR);
@@ -111,7 +116,6 @@
             {
                 echo ("<h1 style='text-align:center;'>Réservation effectuer avec succès</h1></br></br>");
             }
-
             else
             {
                 echo("Echec, la réservation n'a pas été éffectuer</br>");
@@ -144,6 +148,7 @@
             echo ("</tbody>");
             echo ("</table></br></br>");
 
+            $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
             $req = $bdd->prepare("select titre from film natural join reservation where noproj='$_POST[cbofilm]'");
             $req->execute();
             $uneligne = $req->fetch();
