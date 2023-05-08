@@ -7,7 +7,7 @@ test.addEventListener('click', function()
 
     if (nbClick>6) 
     {
-        window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank");
+        window.alert("Vous avez trouvez l'easter egg");
     }
     console.log(nbClick)
 })

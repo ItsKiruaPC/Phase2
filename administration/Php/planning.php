@@ -1,24 +1,34 @@
 <!doctype html>
 <html>
+	<!-- Partie pas réellement visible (head) -->
 	<head>
 		<meta charset="utf-8">
+		<!-- liaison avec le fichier css pour le style -->
         <style><?php include '../css/planning.css'; ?></style>
+		<!-- titre de l'onglet -->
 		<title>Cinéma Pathé Gaumont</title>
 	</head>
+	<!-- Le corps du site -->
 	<body>
+		<!-- Cela permet de créer une box pour tout ce qui en rapport avec la barre de navigation -->
     <div class=banner>
+		<!-- Image en haut a droite du site -->
 		<a href="index.php"><img class="logo" src="../Images/Pathe_logo.png"></a>
-        <h1 class="titre1">Cinéma Pathé Gaumont</h1><br>
+        <!-- Titre du site -->
+		<h1 class="titre1">Cinéma Pathé Gaumont</h1><br>
 		<a href="projection.php"><img src="../Images/login.png" class="login"></a>
     </div>
 		<div class="navbar">
+			<!-- Lien pour changer de page -->
 			<a href="index.php" class="home">Accueil</a>
 			<a href="film.php">Films</a>
 			<a href="planning.php">Planning</a>
 			<a href="reservation.php">Réservations</a>
 			<a href="projection.php">Projection</a>
 		</div>
-		<form class = form1 method="post" action="planning.php">
+		<!-- Création d'un form pour les projection ayant des réservation -->
+		<form class= form1 method="post" action="planning.php">
+		<!-- Balise pouir centrer le texte-->
 		<center>Veuillez renseigner une date de planning : <input type="date" name="txtdate" />
 		<input type="submit" name="btnvalider" value="Valider" /></br></center>
 		</form>
@@ -26,24 +36,30 @@
 		<?php
 			if (isset($_POST["btnvalider"]) == true && $_POST["txtdate"] != "")
 			{
+				//Connection avec la base de donnée
 				$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+				//htmlspecialchars est une sécurité pour contre injection SQL
 				$_POST["txtdate"]=htmlspecialchars($_POST["txtdate"]);
+				//Requête SQL
 				$requete = "select * from projection natural join film where dateproj='$_POST[txtdate]'";
         		$req = $bdd->prepare($requete);
 				$req->execute();
 				$leslignes = $req->fetchall();
+				//Tableau avec les catégories
 				echo ("<center><table class ='tableau' border=1>");
 				echo ("<tr>");
-					echo ("<th>Affiche</th>");
-					echo ("<th>Titre</th>");
-					echo ("<th>Salle</th>");
-					echo ("<th>Date</th>");
-					echo ("<th>Horaire</th>");
+				echo ("<th>Affiche</th>");
+				echo ("<th>Titre</th>");
+				echo ("<th>Salle</th>");
+				echo ("<th>Date</th>");
+				echo ("<th>Horaire</th>");
 				echo ("</tr>");
 				echo("<tbody>");
 				echo ("<tr>");
+				//Boucle qui se repette tant qu'il reste des données à afficher
 				foreach ($leslignes as $uneligne)
 				{
+					//Données dans le tableau
 					echo ("<tbody>
 					<tr>
 					<td><img class='afficher' src='../Images/$uneligne[imgaffiche]'></td>
@@ -57,10 +73,12 @@
 				echo ("</tr>");
 				echo ("</tbody>");
 				echo ("</table></center>");
+				//fermeture de la base de donnée
 				$req->closeCursor();
 				$bdd=null;
 			}
 		?>
+		<!-- un footer pour les contact -->
 		<div class="last-social">
             <div class="texte-reseau">
             <p>Suivez nous sur les réseaux | </p>
@@ -73,8 +91,8 @@
             <a href="https://www.youtube.com/"><ion-icon name="logo-youtube"></ion-icon></a>
         </div>
 			</div>
+		<!-- Script pour affichage d'icone -->
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-		
     </body>
 </html>
