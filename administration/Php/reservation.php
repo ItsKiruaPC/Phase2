@@ -30,7 +30,7 @@
         <select name="cbofilm" style="background-color:#262A2B; color:white">
 		<?php
         //Connection avec la base de donnée
-		$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+		$bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
 		
         //Requête SQL
         $req = $bdd->prepare("select distinct titre, projection.nofilm from film natural join projection");
@@ -61,7 +61,7 @@
         if (isset($_POST["btncherche"])==true)
         {
             //Connection avec la base de donnée
-            $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+            $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
             $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
             //Requête SQL
             $req = $bdd->prepare("select(select nbplaces from salle natural join projection where noproj='$_POST[cbofilm]') - COALESCE((select SUM(nbplaceresa) from reservation where noproj='$_POST[cbofilm]'),0) as 'Nombres de places'");
@@ -97,7 +97,7 @@
             echo ("<select name='cboseance' style='background-color:#7B7B7B; color:white'>");
 
             //Connection avec la base de donnée
-            $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+            $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
             $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
             //Requête SQL
             $req = $bdd->prepare("select * from projection where nofilm='$_POST[cbofilm]'");
@@ -123,11 +123,22 @@
             $shfl = str_shuffle($comb);
             $pwd = substr($shfl,0,6);
         ?></div><?php
-        
-		if (isset($_POST["btnvalider"]) == true)
-		{
-            //Connection avec la base de donnée
-            $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+        if (isset($_POST["btnvalider"]) == true)
+        {
+            $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
+            $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
+            //Requête SQL
+            $req = $bdd->prepare("select(select nbplaces from salle natural join projection where noproj='$_POST[cbofilm]') - COALESCE((select SUM(nbplaceresa) from reservation where noproj='$_POST[cbofilm]'),0) as 'Nombres de places'");
+            $reponse = $req->execute();
+            $leslignes = $req->fetchColumn();
+            if($_POST["txtplace"]>$leslignes)
+            {
+                echo("Bien essayé mais ca marche pas");
+            }
+            else
+            {
+                //Connection avec la base de donnée
+            $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
             $dateann = date("Y-m-d");
             //Requête SQL
             $req = $bdd->prepare("insert into reservation (mdpresa, nomclient, dateresa, nbplaceresa, noproj) values (:pwd, :nom, :seance, :place, :film)");
@@ -150,16 +161,9 @@
             {
                 echo("Echec, la réservation n'a pas été éffectuer</br>");
             }
-            //fermeture de la base de donnée
-            $req->closeCursor();
-            $bdd=null;
-                
-		}
 
-        if (isset($_POST["btnvalider"]) == true)
-        {
             //Connection avec la base de donnée
-            $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+            $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
             //Requête SQL
             $req = $bdd->prepare("select mdpresa, MAX(noresa) as reservation from reservation");
             $req->execute();
@@ -196,11 +200,88 @@
             $file_name=$folder.$file_name;
             QRcode::png($text,$file_name);
             echo"<center><img src='../Images/qr.png'></center>";
-
             //fermeture de la base de donnée
             $req->closeCursor();
             $bdd=null;
+            }
         }
+		// if (isset($_POST["btnvalider"]) == true)
+		// {
+        //     //Connection avec la base de donnée
+        //     $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
+        //     $dateann = date("Y-m-d");
+        //     //Requête SQL
+        //     $req = $bdd->prepare("insert into reservation (mdpresa, nomclient, dateresa, nbplaceresa, noproj) values (:pwd, :nom, :seance, :place, :film)");
+        //     $_POST["txtnom"]=htmlspecialchars($_POST["txtnom"]);
+        //     $_POST["cboseance"]=htmlspecialchars($_POST["cboseance"]);
+        //     $_POST["txtplace"]=htmlspecialchars($_POST["txtplace"]);
+        //     $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
+        //     $req->bindParam(':pwd',$pwd, PDO::PARAM_STR);
+        //     $req->bindParam(':nom',$_POST["txtnom"], PDO::PARAM_STR);
+        //     $req->bindParam(':seance',$_POST["cboseance"], PDO::PARAM_STR);
+        //     $req->bindParam(':place',$_POST["txtplace"], PDO::PARAM_INT);
+        //     $req->bindParam(':film',$_POST["cbofilm"], PDO::PARAM_INT);
+        //     $reponse = $req->execute();
+
+        //     if ($reponse == true)
+        //     {
+        //         echo ("<h1 style='text-align:center;'>Réservation effectuer avec succès</h1></br></br>");
+        //     }
+        //     else
+        //     {
+        //         echo("Echec, la réservation n'a pas été éffectuer</br>");
+        //     }
+        //     //fermeture de la base de donnée
+        //     $req->closeCursor();
+        //     $bdd=null;
+                
+		// }
+
+        // if (isset($_POST["btnvalider"]) == true)
+        // {
+        //     //Connection avec la base de donnée
+        //     $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
+        //     //Requête SQL
+        //     $req = $bdd->prepare("select mdpresa, MAX(noresa) as reservation from reservation");
+        //     $req->execute();
+        //     $uneligne = $req->fetch();
+
+        //     echo ("<table class='tableau' border=1 style='margin:0 auto;'>");
+        //     echo ("<thead>");
+        //     echo ("<tr>");
+        //     echo ("<th>Numéro de Réservation</th>");
+        //     echo ("<th>Mot de passe</th>");
+        //     echo ("</tr>");
+        //     echo ("</thead>");
+        //     echo ("<tbody>");
+        //     echo ("
+        //     <tr>
+        //     <td>$uneligne[reservation] </td>
+        //     <td>$uneligne[mdpresa] </td>
+        //     </tr>");
+        //     echo ("</tbody>");
+        //     echo ("</table></br></br>");
+
+        //     $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
+        //     //Requête SQL
+        //     $req = $bdd->prepare("select titre from film natural join reservation where noproj='$_POST[cbofilm]'");
+        //     $req->execute();
+        //     $uneligne = $req->fetch();
+        //     //Partie pour le QRcode
+        //     include('../phpqrcode/qrlib.php');
+        //     $text="Film : $uneligne[titre]
+        //     \nNom : $_POST[txtnom]
+        //     \nMot de Passe : $pwd";
+        //     $folder="../Images/";
+        //     $file_name="qr.png";
+        //     $file_name=$folder.$file_name;
+        //     QRcode::png($text,$file_name);
+        //     echo"<center><img src='../Images/qr.png'></center>";
+
+        //     //fermeture de la base de donnée
+        //     $req->closeCursor();
+        //     $bdd=null;
+        // }
         ?>
         </form>
         <!-- un footer pour les contact -->

@@ -37,7 +37,7 @@
 			if (isset($_POST["btnvalider"]) == true && $_POST["txtdate"] != "")
 			{
 				//Connection avec la base de donnée
-				$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+				$bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
 				//htmlspecialchars est une sécurité pour contre injection SQL
 				$_POST["txtdate"]=htmlspecialchars($_POST["txtdate"]);
 				//Requête SQL

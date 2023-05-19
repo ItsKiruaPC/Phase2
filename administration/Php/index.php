@@ -27,7 +27,7 @@
 		<div class="boite">
 		<?php
 				//Connection avec la base de donnée
-				$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+				$bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
 				//Requête SQL
 				$requete = "select Distinct nofilm, film.*  from film natural join concerner natural join genre";
         		$req = $bdd->prepare($requete);

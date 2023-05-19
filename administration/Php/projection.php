@@ -33,7 +33,7 @@
             <center><select name="cbofilm" style="background-color:#262A2B; color:white" required></center>
                     <?php
                     //Connection avec la base de donnée
-                    $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+                    $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
                     //Requête SQL
                     $req = $bdd->prepare("select distinct titre, film.* from film natural join concerner");
                     $req->execute();
@@ -56,7 +56,7 @@
                 <select name="cbosalle" style="background-color:#262A2B; color:white" required>
                     <?php
                     //Connection avec la base de donnée
-                    $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+                    $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
                     //Requête SQL
                     $req = $bdd->prepare("select * from salle");
                     $req->execute();
@@ -85,7 +85,7 @@
                     if (isset($_POST["btnvalider"]) == true)
                     {
                         //Connection avec la base de donnée
-                        $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+                        $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
                         //Requête SQL
                         $req = $bdd->prepare("insert into projection (nofilm, nosalle, dateproj, heureproj, infoproj) values (:film, :salle, :date, :heure, :synop)");
                         //htmlspecialchars est une sécurité pour contre injection php html css et js
@@ -119,7 +119,7 @@
                     if (isset($_POST["btnsupprimer"]) == true)
                     {
                         //Connection avec la base de donnée
-                        $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+                        $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
                         //Requête SQL
                         $req = $bdd->prepare("delete from projection where nofilm=:film and nosalle=:salle and dateproj=:date and heureproj=:heure");
                         //htmlspecialchars est une sécurité pour contre injection php html css et js
@@ -154,7 +154,7 @@
             if (isset($_POST["btnvalider"]) == true || isset($_POST["btnsupprimer"]) == true || isset($_POST["btnvalider"])==false)
             {
                 //Connection avec la base de donnée
-                $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+                $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
                 //Requête SQL
                 $requete = "select * from film natural join salle natural join projection order by dateproj";
                 $req = $bdd->prepare($requete);
