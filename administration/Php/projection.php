@@ -16,6 +16,9 @@
         <h1 class="titre1">Cinéma Pathé Gaumont</h1><br>
         <img src="../Images/login.png" class="login" id="easter">
     </div>
+	<div>
+	<center><h3 class="note">Ceci est un faux site à but éducatif</h3></center>
+	</div>
         <div class="navbar">
             <!-- Lien pour changer de page -->
             <a href="index.php" class="home">Accueil</a>

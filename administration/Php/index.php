@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<!-- liaison avec le fichier css pour le style -->
         <style><?php include '../css/style.css'; ?></style>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!-- titre de l'onglet -->
 		<title>Cinéma Pathé Gaumont</title>
 	</head>
@@ -14,8 +15,11 @@
         <a href="index.php"><img class="logo" src="../Images/Pathe_logo.png"></a>
 		<!-- Titre du site -->
         <h1 class="titre1">Cinéma Pathé Gaumont</h1><br>
-        <a href="projection.php"><img src="../Images/login.png" class="login"></a>
+        <img src="../Images/login.png" class="login" id="easter">
     </div>
+	<div>
+	<center><h3 class="note">Ceci est un faux site à but éducatif</h3></center>
+	</div>
 		<div class="navbar">
 			<!-- Lien pour changer de page -->
 			<a href="index.php" class="home">Accueil</a>
