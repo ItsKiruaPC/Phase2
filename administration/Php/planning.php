@@ -1,10 +1,11 @@
 <!doctype html>
-<html>
+<html lang="fr">
 	<!-- Partie pas réellement visible (head) -->
 	<head>
 		<meta charset="utf-8">
 		<!-- liaison avec le fichier css pour le style -->
         <style><?php include '../css/planning.css'; ?></style>
+		<link rel="icon" href="../Images/Pathe_logo.png">
 		<!-- titre de l'onglet -->
 		<title>Cinéma Pathé Gaumont</title>
 	</head>
@@ -15,8 +16,8 @@
 		<!-- Image en haut a droite du site -->
 		<a href="index.php"><img class="logo" src="../Images/Pathe_logo.png"></a>
         <!-- Titre du site -->
-		<h1 class="titre1">Cinéma Pathé Gaumont</h1><br>
-        <img src="../Images/login.png" class="login" id="easter">
+		<h1 class="titre1" id="easter">Cinéma Pathé Gaumont</h1><br>
+        <a href="projection.php"><img src="../Images/login.png" class="login"></a><!--<a href="connection.php">!-->
     </div>
 	<div>
 	<center><h3 class="note">Ceci est un faux site à but éducatif</h3></center>
@@ -27,7 +28,6 @@
 			<a href="film.php">Films</a>
 			<a href="planning.php">Planning</a>
 			<a href="reservation.php">Réservations</a>
-			<a href="projection.php">Projection</a>
 		</div>
 		<!-- Création d'un form pour les projection ayant des réservation -->
 		<form class= form1 method="post" action="planning.php">
@@ -40,7 +40,7 @@
 			if (isset($_POST["btnvalider"]) == true && $_POST["txtdate"] != "")
 			{
 				//Connection avec la base de donnée
-				$bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
+				$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
 				//htmlspecialchars est une sécurité pour contre injection SQL
 				$_POST["txtdate"]=htmlspecialchars($_POST["txtdate"]);
 				//Requête SQL
@@ -97,5 +97,6 @@
 		<!-- Script pour affichage d'icone -->
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+		<script src="../Js/app.js"></script>
     </body>
 </html>

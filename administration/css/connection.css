@@ -1,0 +1,139 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10%;
+    background-color: #1d2b3a;
+}
+.nav__links
+{
+    list-style: none;
+}
+.nav__links a
+{
+    text-decoration: none;
+}
+.nav__links li
+{
+    display: inline-block;
+    padding: 0px 20px;
+}
+.nav__links li a
+{
+    transition: all 0.3s ease 0s;
+    text-decoration: none;
+}
+.nav__links li a:hover
+{
+    color: #0088a9;
+}
+.nav__links li a:visited
+{
+    color: #0088a9;
+}
+button
+{
+    padding: 9px 25px;
+    background-color: rgba(0, 136, 169, 1);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+.navigation
+{
+    position: relative;
+    width: 400px;
+    height: 70px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background: rgb(96, 96, 96);
+    border-radius: 10px;
+    
+    
+}
+.navigation ul
+{
+    display: flex;
+    width: 350px;
+    
+}
+.navigation ul li
+{
+    position: relative;
+    list-style: none;
+}
+.body
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    gap: 30px;
+    background-color: #1d2b3a;
+}
+.inputbox
+{
+    position: relative;
+    width: 250px;   
+}
+.inputbox input
+{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgb(255,255,255,0.25);
+    background: #1d2b3a;
+    border-radius: 10px;
+    outline: none;
+    color: white;
+    font-size: 1em;
+    transition: 0.5s;
+    
+
+}
+.inputbox span
+{
+    position: absolute;
+    left: 0px;
+    padding: 10px;
+    text-transform: uppercase;
+    pointer-events: none;
+    color: rgb(255,255,255,0.25);
+    transition: 0.5s;
+    font-size: 1em;
+    background-color: transparent;
+}
+.inputbox input:valid ~ span,
+.inputbox input:focus ~ span
+{
+    color: aqua;
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.65em;
+    padding: 0 10px;
+    border-left: 1px solid aqua;
+    border-right: 1px solid aqua;
+    background-color: #1d2b3a;
+}
+.inputbox:nth-child(2) input:valid ~ span,
+.inputbox:nth-child(2) input:focus ~ span
+{
+    background-color: aqua;
+    color: #1d2b3a;
+    border-radius: 1px;
+}
+.inputbox input:valid,
+.inputbox input:focus
+{
+    border: 1px solid aqua;
+}

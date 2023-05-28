@@ -1,9 +1,10 @@
 <!doctype html>
-<html>
+<html lang="fr">
 	<head>
 		<meta charset="utf-8">
         <!-- liaison avec le fichier css pour le style -->
         <style><?php include '../css/reservation.css'; ?></style>
+        <link rel="icon" href="../Images/Pathe_logo.png">
 		<!-- titre de l'onglet -->
         <title>Cinéma Pathé Gaumont</title>
 	</head>
@@ -13,8 +14,8 @@
         <!-- Image en haut a droite du site -->
         <a href="index.php"><img class="logo" src="../Images/Pathe_logo.png"></a>
         <!-- Titre du site -->
-        <h1 class="titre1">Cinéma Pathé Gaumont</h1><br>
-        <img src="../Images/login.png" class="login" id="easter">
+        <h1 class="titre1" id="easter">Cinéma Pathé Gaumont</h1><br>
+        <a href="projection.php"><img src="../Images/login.png" class="login"></a><!--<a href="connection.php">!-->
     </div>
 	<div>
 	<center><h3 class="note">Ceci est un faux site à but éducatif</h3></center>
@@ -25,7 +26,6 @@
 			<a href="film.php">Films</a>
 			<a href="planning.php">Planning</a>
 			<a href="reservation.php">Réservations</a>
-            <a href="projection.php">Projection</a>
 		</div>
         <div class="warp">
         <!-- Création du form -->
@@ -33,7 +33,7 @@
         <select name="cbofilm" style="background-color:#262A2B; color:white">
 		<?php
         //Connection avec la base de donnée
-		$bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
+		$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
 		
         //Requête SQL
         $req = $bdd->prepare("select distinct titre, projection.nofilm from film natural join projection");
@@ -64,7 +64,7 @@
         if (isset($_POST["btncherche"])==true)
         {
             //Connection avec la base de donnée
-            $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
+            $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
             $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
             //Requête SQL
             $req = $bdd->prepare("select(select nbplaces from salle natural join projection where noproj='$_POST[cbofilm]') - COALESCE((select SUM(nbplaceresa) from reservation where noproj='$_POST[cbofilm]'),0) as 'Nombres de places'");
@@ -100,7 +100,7 @@
             echo ("<select name='cboseance' style='background-color:#7B7B7B; color:white'>");
 
             //Connection avec la base de donnée
-            $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
+            $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
             $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
             //Requête SQL
             $req = $bdd->prepare("select * from projection where nofilm='$_POST[cbofilm]'");
@@ -128,7 +128,7 @@
         ?></div><?php
         if (isset($_POST["btnvalider"]) == true)
         {
-            $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
+            $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
             $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
             //Requête SQL
             $req = $bdd->prepare("select(select nbplaces from salle natural join projection where noproj='$_POST[cbofilm]') - COALESCE((select SUM(nbplaceresa) from reservation where noproj='$_POST[cbofilm]'),0) as 'Nombres de places'");
@@ -141,7 +141,7 @@
             else
             {
                 //Connection avec la base de donnée
-            $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
+            $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
             $dateann = date("Y-m-d");
             //Requête SQL
             $req = $bdd->prepare("insert into reservation (mdpresa, nomclient, dateresa, nbplaceresa, noproj) values (:pwd, :nom, :seance, :place, :film)");
@@ -166,7 +166,7 @@
             }
 
             //Connection avec la base de donnée
-            $bdd = new PDO("mysql:host=localhost;dbname=id20735984_bdciedehkalfevre;charset=utf8", "id20735984_adrien", "KidrCc7x&CC5tzf75Db3");
+            $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
             //Requête SQL
             $req = $bdd->prepare("select mdpresa, MAX(noresa) as reservation from reservation");
             $req->execute();
@@ -226,6 +226,7 @@
         <!-- Script pour affichage d'icone -->
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script src="../Js/app.js"></script>
 
     </body>
 </html>
