@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="utf-8">
         <!-- liaison avec le fichier css pour le style -->
-        <style><?php include '../css/reservation.css'; ?></style>
+        <link rel="stylesheet" href="../css/reservation.css">
+        <?php include('connexion.php');?>
         <link rel="icon" href="../Images/Pathe_logo.png">
 		<!-- titre de l'onglet -->
         <title>Cinéma Pathé Gaumont</title>
@@ -33,7 +34,7 @@
         <select name="cbofilm" style="background-color:#262A2B; color:white">
 		<?php
         //Connection avec la base de donnée
-		$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+		
 		
         //Requête SQL
         $req = $bdd->prepare("select distinct titre, projection.nofilm from film natural join projection");
@@ -54,17 +55,17 @@
         }
         //fermeture de la base de donnée
 		$req->closeCursor();
-		$bdd=null;
+		
 		?>
-        <input type='submit' name='btncherche' value='Chercher' style="background-color:#7B7B7B; color:white"/></br>
+        <input type='submit' name='btncherche' value='Chercher' style="background-color:#7B7B7B; color:white"/><br>
 		</select>
-        </br></br>
+        <br><br>
 
         <?php
         if (isset($_POST["btncherche"])==true)
         {
             //Connection avec la base de donnée
-            $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+            
             $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
             //Requête SQL
             $req = $bdd->prepare("select(select nbplaces from salle natural join projection where noproj='$_POST[cbofilm]') - COALESCE((select SUM(nbplaceresa) from reservation where noproj='$_POST[cbofilm]'),0) as 'Nombres de places'");
@@ -79,16 +80,16 @@
             else
             {
                 echo("<form method='post' action='reservation.php' class = form1>
-                Nom : <input type='text' name='txtnom' style='background-color:#7B7B7B; color:white'/></br></br>
-                Nombre de places : <input type='number' name='txtplace' value='1' min='1' max='$leslignes' style='background-color:#7B7B7B; color:white'/></br></br>");
+                Nom : <input type='text' name='txtnom' style='background-color:#7B7B7B; color:white'/><br><br>
+                Nombre de places : <input type='number' name='txtplace' value='1' min='1' max='$leslignes' style='background-color:#7B7B7B; color:white'/><br><br>");
                 echo ("Place restantes : $leslignes");
             }
             //fermeture de la base de donnée
             $req->closeCursor();
-            $bdd=null;
+            
         }
         ?>
-        </br></br>
+        <br><br>
 
         <?php
         if (isset($_POST["btncherche"])==true)
@@ -100,7 +101,7 @@
                 echo ("<select name='cboseance' style='background-color:#7B7B7B; color:white'>");
 
                 //Connection avec la base de donnée
-                $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+                
                 $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
                 //Requête SQL
                 
@@ -118,9 +119,9 @@
                 }
                 //fermeture de la base de donnée
                 $req->closeCursor();
-                $bdd=null;
+                
                 echo ("</select>
-                        <input type='submit' name='btnvalider' value='Valider'/></br>");
+                        <input type='submit' name='btnvalider' value='Valider'/><br>");
             }
         }
             //Programme pour créer un mot de passe a 6 caractère random
@@ -130,7 +131,7 @@
         ?></div><?php
         if (isset($_POST["btnvalider"]) == true)
         {
-            $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+            
             $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
             //Requête SQL
             $req = $bdd->prepare("select(select nbplaces from salle natural join projection where noproj='$_POST[cbofilm]') - COALESCE((select SUM(nbplaceresa) from reservation where noproj='$_POST[cbofilm]'),0) as 'Nombres de places'");
@@ -143,7 +144,7 @@
             else
             {
                 //Connection avec la base de donnée
-            $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+            
             $dateann = date("Y-m-d");
             //Requête SQL
             $req = $bdd->prepare("insert into reservation (mdpresa, nomclient, dateresa, nbplaceresa, noproj) values (:pwd, :nom, :seance, :place, :film)");
@@ -160,15 +161,15 @@
 
             if ($reponse == true)
             {
-                echo ("<h1 style='text-align:center;'>Réservation effectuer avec succès</h1></br></br>");
+                echo ("<h1 style='text-align:center;'>Réservation effectuer avec succès</h1><br><br>");
             }
             else
             {
-                echo("Echec, la réservation n'a pas été éffectuer</br>");
+                echo("Echec, la réservation n'a pas été éffectuer<br>");
             }
 
             //Connection avec la base de donnée
-            $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+            
             //Requête SQL
             $req = $bdd->prepare("select mdpresa, MAX(noresa) as reservation from reservation");
             $req->execute();
@@ -188,7 +189,7 @@
             <td>$uneligne[mdpresa] </td>
             </tr>");
             echo ("</tbody>");
-            echo ("</table></br></br>");
+            echo ("</table><br><br>");
 
             $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
             //Requête SQL
@@ -207,7 +208,7 @@
             echo"<center><img src='../Images/qr.png'></center>";
             //fermeture de la base de donnée
             $req->closeCursor();
-            $bdd=null;
+            include('deconnexion.php');
             }
         }
         ?>

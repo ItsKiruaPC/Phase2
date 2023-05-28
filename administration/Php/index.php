@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- liaison avec le fichier css pour le style -->
-        <style><?php include '../css/style.css'; ?></style>
+        <link rel="stylesheet" href="../css/style.css">
+        <?php include('connexion.php');?>
 		<link rel="icon" href="../Images/Pathe_logo.png">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!-- titre de l'onglet -->
@@ -31,7 +32,7 @@
 		<div class="boite">
 		<?php
 				//Connection avec la base de donnée
-				$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+				
 				//Requête SQL
 				$requete = "select Distinct nofilm, film.*  from film natural join concerner natural join genre";
         		$req = $bdd->prepare($requete);
@@ -47,22 +48,22 @@
 					?><div class="afficher"><?php
 					echo ("<a href='$uneligne[infofilm]' target='_blank'><img src='../Images/$uneligne[imgaffiche]' ></a>");
 					?></div><div class="minibox1"><?php
-					echo ("<h1>$uneligne[titre]</h1></a><br>");
+					echo ("<h1>$uneligne[titre]</h1><br>");
 					//Affiche réalisateurs
-					echo ("<p><h2>Réalisateurs:</h2> $uneligne[realisateurs]</p><br/>");
+					echo ("<h2>Réalisateurs:</h2><p> $uneligne[realisateurs]</p><br/>");
 					//Affiche acteurs
-					echo ("<p><h2>Acteurs:</h2> $uneligne[acteurs]</p><br/>");
+					echo ("<h2>Acteurs:</h2><p> $uneligne[acteurs]</p><br/>");
 					//Affiche durée
-					echo ("<p><h2>Durée:</h2> $uneligne[duree]</p><br/>");
+					echo ("<h2>Durée:</h2><p> $uneligne[duree]</p><br/>");
 					//Affiche synopsis
-					echo ("<p><h2>Synopsis: </h2>$uneligne[synopsis]</p>");
+					echo ("<h2>Synopsis: </h2><p> $uneligne[synopsis]</p>");
 					?></div><?php
 					?>
 					</div>
 					<?php
 				}
 				$req->closeCursor();
-				$bdd=null;
+				include('deconnexion.php');
 		?>
 		</div>
 		<!-- un footer pour les contact -->

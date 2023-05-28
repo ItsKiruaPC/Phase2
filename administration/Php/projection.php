@@ -3,7 +3,8 @@
     <head>
         <meta charset="utf-8">
         <!-- liaison avec le fichier css pour le style -->
-        <style><?php include '../css/projection.css'; ?></style>
+        <link rel="stylesheet" href="../css/projection.css">
+        <?php include('connexion.php');?>
         <link rel="icon" href="../Images/Pathe_logo.png">
         <!-- titre de l'onglet -->
         <title>Cinéma Pathé Gaumont</title>
@@ -33,11 +34,11 @@
             <!-- Création du form -->
             <form method="post" action="projection.php" class="form1">
             <!-- Centrer le texte -->
-            <center>Films</center></br>
+            <center>Films</center><br>
             <center><select name="cbofilm" style="background-color:#262A2B; color:white" required></center>
                     <?php
                     //Connection avec la base de donnée
-                    $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+                    
                     //Requête SQL
                     $req = $bdd->prepare("select distinct titre, film.* from film natural join concerner");
                     $req->execute();
@@ -52,15 +53,15 @@
                     }
                     //fermeture de la base de donnée
                     $req->closeCursor();
-                    $bdd=null;
+                    
                     ?>
                 </select>
-                </br></br>
+                <br><br>
                 Salles :
                 <select name="cbosalle" style="background-color:#262A2B; color:white" required>
                     <?php
                     //Connection avec la base de donnée
-                    $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+                    
                     //Requête SQL
                     $req = $bdd->prepare("select * from salle");
                     $req->execute();
@@ -75,13 +76,13 @@
                     }
                     //fermeture de la base de donnée
                     $req->closeCursor();
-                    $bdd=null;
+                    
                     ?>
                 </select>
-                </br></br>
-                Date : <input type="date" name="txtdate" required/></br></br>
-                Heure : <input type="time" name="txtheure" /></br></br>
-                Synopsis : </br><textarea name="txtinfo" rows="5" cols="31"></textarea></br></br>
+                <br><br>
+                Date : <input type="date" name="txtdate" required/><br><br>
+                Heure : <input type="time" name="txtheure" /><br><br>
+                Synopsis : <br><textarea name="txtinfo" rows="5" cols="31"></textarea><br><br>
                 <input class="ajoutbtn" type="submit" name="btnvalider" value="Ajouter"/>
                 <input class="supbtn" type="submit" name="btnsupprimer" value="Supprimer"/>
                 </form>
@@ -89,7 +90,7 @@
                     if (isset($_POST["btnvalider"]) == true)
                     {
                         //Connection avec la base de donnée
-                        $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+                        
                         //Requête SQL
                         $req = $bdd->prepare("insert into projection (nofilm, nosalle, dateproj, heureproj, infoproj) values (:film, :salle, :date, :heure, :synop)");
                         //htmlspecialchars est une sécurité pour contre injection php html css et js
@@ -108,22 +109,22 @@
 
                         if ($reponse == true)
                         {
-                            echo ("</br></br><h1 style='text-align:center;'>Projection ajouter avec succès</h1></br></br>");
+                            echo ("<br><br><h1 style='text-align:center;'>Projection ajouter avec succès</h1><br><br>");
                         }
                         else
                         {
-                            echo("</br></br>Echec, la projection n'a pas été ajouter</br>");
+                            echo("<br><br>Echec, la projection n'a pas été ajouter<br>");
                         }
                         //fermeture de la base de donnée
                         $req->closeCursor();
-                        $bdd=null;
+                        
                     }
                     
                     
                     if (isset($_POST["btnsupprimer"]) == true)
                     {
                         //Connection avec la base de donnée
-                        $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+                        
                         //Requête SQL
                         $req = $bdd->prepare("delete from projection where nofilm=:film and nosalle=:salle and dateproj=:date and heureproj=:heure");
                         //htmlspecialchars est une sécurité pour contre injection php html css et js
@@ -140,15 +141,15 @@
 
                         if ($reponse == true)
                         {
-                            echo ("</br></br><h1 style='text-align:center;'>Projection supprimer avec succès</h1></br></br>");
+                            echo ("<br><br><h1 style='text-align:center;'>Projection supprimer avec succès</h1><br><br>");
                         }
                         else
                         {
-                            echo("</br></br>Echec, la projection n'a pas été supprimer</br>");
+                            echo("<br><br>Echec, la projection n'a pas été supprimer<br>");
                         }
                         //fermeture de la base de donnée
                         $req->closeCursor();
-                        $bdd=null;
+                        
                     }
                     ?>
             </div>
@@ -158,7 +159,7 @@
             if (isset($_POST["btnvalider"]) == true || isset($_POST["btnsupprimer"]) == true || isset($_POST["btnvalider"])==false)
             {
                 //Connection avec la base de donnée
-                $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+                
                 //Requête SQL
                 $requete = "select * from film natural join salle natural join projection order by dateproj, heureproj";
                 $req = $bdd->prepare($requete);
@@ -195,12 +196,9 @@
                 echo ("</table></center>");
                 //fermeture de la base de donnée
                 $req->closeCursor();
-                $bdd=null;
+                include('deconnexion.php');
             }
-
         ?>
-                
-                    
             </div>
         </div>
         <!-- un footer pour les contact -->

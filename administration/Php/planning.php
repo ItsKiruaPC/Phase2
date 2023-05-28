@@ -4,7 +4,8 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- liaison avec le fichier css pour le style -->
-        <style><?php include '../css/planning.css'; ?></style>
+        <link rel="stylesheet" href="../css/planning.css">
+        <?php include('connexion.php');?>
 		<link rel="icon" href="../Images/Pathe_logo.png">
 		<!-- titre de l'onglet -->
 		<title>Cinéma Pathé Gaumont</title>
@@ -33,14 +34,14 @@
 		<form class= form1 method="post" action="planning.php">
 		<!-- Balise pouir centrer le texte-->
 		<center>Veuillez renseigner une date de planning : <input type="date" name="txtdate" />
-		<input type="submit" name="btnvalider" value="Valider" /></br></center>
+		<input type="submit" name="btnvalider" value="Valider" /><br></center>
 		</form>
 
 		<?php
 			if (isset($_POST["btnvalider"]) == true && $_POST["txtdate"] != "")
 			{
 				//Connection avec la base de donnée
-				$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+				
 				//htmlspecialchars est une sécurité pour contre injection SQL
 				$_POST["txtdate"]=htmlspecialchars($_POST["txtdate"]);
 				//Requête SQL
@@ -78,7 +79,7 @@
 				echo ("</table></center>");
 				//fermeture de la base de donnée
 				$req->closeCursor();
-				$bdd=null;
+				include('deconnexion.php');
 			}
 		?>
 		<!-- un footer pour les contact -->

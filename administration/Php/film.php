@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- liaison avec le fichier css pour le style -->
-        <style><?php include '../css/film.css'; ?></style>
+		<link rel="stylesheet" href="../css/film.css">
+        <?php include('connexion.php');?>
 		<link rel="icon" href="../Images/Pathe_logo.png">
 		<!-- titre de l'onglet -->
 		<title>Cinéma Pathé Gaumont</title>
@@ -37,7 +38,7 @@
 		<select name="cbopublic">
 		<?php
 		//Connection avec la base de donnée
-		$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+		 
 		//Requête SQL
 		$req = $bdd->prepare("select * from public");
 		$req->execute();
@@ -49,7 +50,6 @@
 			echo ("<option value='$uneligne[nopublic]'> $uneligne[libpublic] </option>");
 		}
 		$req->closeCursor();
-		$bdd=null;
 		?>
 		</select>
 		<br/><br/>
@@ -57,7 +57,7 @@
 		<select name="cbogenre">
 		<?php
 		//Connection avec la base de donnée
-		$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+		 
 		//Requête SQL
 		$req = $bdd->prepare("select * from genre");
 		$req->execute();
@@ -69,19 +69,18 @@
 			echo ("<option value='$uneligne[nogenre]'> $uneligne[libgenre] </option>");
 		}
 		$req->closeCursor();
-		$bdd=null;
 		
 		?>
 		</div>
 		</select><br><br>
 		<input type="submit" name="btnvalider" class="accepte" value="Valider" />
-		<input type="submit" name="btntout" class="accepte" style="margin-left: 20px;" value="Afficher tout les films" /></br>
+		<input type="submit" name="btntout" class="accepte" style="margin-left: 20px;" value="Afficher tout les films" /><br>
 		</form>
 		<?php
 		if (isset($_POST["btntout"]) == true)
 		{
 			//Connection avec la base de donnée
-			$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+			 
 			//htmlspecialchars est une sécurité pour contre injection SQL
 			$_POST["txttitre"]=htmlspecialchars($_POST["txttitre"]);
 			//Requête SQL
@@ -123,11 +122,10 @@
 			echo ("</table>");
 			//fermeture de la base de donnée
 			$req->closeCursor();
-			$bdd=null;
 		}
 			if (isset($_POST["btnvalider"]) == true)
 			{
-				$bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+				 
 
 
 				if ($_POST["txttitre"]!="")
@@ -269,7 +267,7 @@
 				}
 			//fermeture de la base de donnée
 			$req->closeCursor();
-			$bdd=null;
+			include('deconnexion.php');
 			}
 		?>
 		</div>
