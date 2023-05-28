@@ -96,31 +96,33 @@
             if ($leslignes == 0){}
             else
             {
-            echo ("Veuillez séléctionner la date qui vous convient : ");
-            echo ("<select name='cboseance' style='background-color:#7B7B7B; color:white'>");
+                echo ("Veuillez séléctionner la date qui vous convient : ");
+                echo ("<select name='cboseance' style='background-color:#7B7B7B; color:white'>");
 
-            //Connection avec la base de donnée
-            $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
-            $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
-            //Requête SQL
-            $req = $bdd->prepare("select * from projection where nofilm='$_POST[cbofilm]'");
-            $req->execute();
-            $leslignes = $req->fetchall();
+                //Connection avec la base de donnée
+                $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
+                $_POST["cbofilm"]=htmlspecialchars($_POST["cbofilm"]);
+                //Requête SQL
+                
+                $req = $bdd->prepare("select * from projection where nofilm='$_POST[cbofilm]'");
+                $req->execute();
+                $leslignes = $req->fetchall();
 
-            echo("<option value=''>---Veuillez séléctionner une séance---</option>");
-            //Boucle qui se repette tant qu'il reste des données à afficher
-            foreach ($leslignes as $uneligne)
-            {
-                echo ("<option value='$uneligne[dateproj]'>$uneligne[dateproj]</option>");
+                echo("<option value='' disabled selected>---Veuillez séléctionner une séance---</option>");
+                //Boucle qui se repette tant qu'il reste des données à afficher
+                foreach ($leslignes as $uneligne)
+                {
+                    $date=$uneligne['dateproj'];
+                    $datenew = date("d-m-Y", strtotime($date));
+                    echo ("<option value='$uneligne[dateproj]' >Date: $datenew | Heure: $uneligne[heureproj]</option>");
+                }
+                //fermeture de la base de donnée
+                $req->closeCursor();
+                $bdd=null;
+                echo ("</select>
+                        <input type='submit' name='btnvalider' value='Valider'/></br>");
             }
-            //fermeture de la base de donnée
-            $req->closeCursor();
-            $bdd=null;
-
-            echo ("</select>
-                    <input type='submit' name='btnvalider' value='Valider'/></br>");
         }
-    }
             //Programme pour créer un mot de passe a 6 caractère random
             $comb = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             $shfl = str_shuffle($comb);

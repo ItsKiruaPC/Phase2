@@ -160,7 +160,7 @@
                 //Connection avec la base de donnée
                 $bdd = new PDO("mysql:host=localhost;dbname=bdciedehkalfevre;charset=utf8", "root", "");
                 //Requête SQL
-                $requete = "select * from film natural join salle natural join projection order by dateproj";
+                $requete = "select * from film natural join salle natural join projection order by dateproj, heureproj";
                 $req = $bdd->prepare($requete);
                 $req->execute();
                 $leslignes = $req->fetchall();

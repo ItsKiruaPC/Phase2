@@ -44,7 +44,7 @@
 				//htmlspecialchars est une sécurité pour contre injection SQL
 				$_POST["txtdate"]=htmlspecialchars($_POST["txtdate"]);
 				//Requête SQL
-				$requete = "select * from projection natural join film where dateproj='$_POST[txtdate]'";
+				$requete = "select * from projection natural join film where dateproj='$_POST[txtdate]' order by dateproj, heureproj";
         		$req = $bdd->prepare($requete);
 				$req->execute();
 				$leslignes = $req->fetchall();
