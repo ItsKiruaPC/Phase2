@@ -137,7 +137,7 @@
             $req = $bdd->prepare("select(select nbplaces from salle natural join projection where noproj='$_POST[cbofilm]') - COALESCE((select SUM(nbplaceresa) from reservation where noproj='$_POST[cbofilm]'),0) as 'Nombres de places'");
             $reponse = $req->execute();
             $leslignes = $req->fetchColumn();
-            if($_POST["txtplace"]>$leslignes)
+            if($_POST["txtplace"]>$leslignes || $_POST["txtplace"]<=0)
             {
                 echo("<h3>Bien essayé mais ca marche pas</h3>");
             }
