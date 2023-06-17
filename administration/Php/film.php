@@ -125,9 +125,6 @@
 		}
 			if (isset($_POST["btnvalider"]) == true)
 			{
-				 
-
-
 				if ($_POST["txttitre"]!="")
 				{
 					$_POST["txttitre"]=htmlspecialchars($_POST["txttitre"]);
@@ -163,8 +160,8 @@
 					$req = $bdd->prepare($requete);
 					$req->execute();
 					$leslignes = $req->fetchall();
-
 				}
+
 				else if ($_POST["txttitre"] == "")
 				{
 					$requete=("select Distinct nofilm, film.*  from film natural join concerner natural join genre where");

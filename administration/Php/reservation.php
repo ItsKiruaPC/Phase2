@@ -80,8 +80,8 @@
             else
             {
                 echo("<form method='post' action='reservation.php' class = form1>
-                Nom : <input type='text' name='txtnom' style='background-color:#7B7B7B; color:white'/><br><br>
-                Nombre de places : <input type='number' name='txtplace' value='1' min='1' max='$leslignes' style='background-color:#7B7B7B; color:white'/><br><br>");
+                Nom : <input type='text' name='txtnom' required='required' style='background-color:#7B7B7B; color:white'/><br><br>
+                Nombre de places : <input type='number' name='txtplace' required='required' value='1' min='1' max='$leslignes' style='background-color:#7B7B7B; color:white'/><br><br>");
                 echo ("Place restantes : $leslignes");
             }
             //fermeture de la base de donnée
@@ -140,6 +140,10 @@
             if($_POST["txtplace"]>$leslignes || $_POST["txtplace"]<=0)
             {
                 echo("<h3>Bien essayé mais ca marche pas</h3>");
+            }
+            else if (ctype_space($_POST["txtnom"]))
+            {
+                echo("<h3>Le nom de peut pas être vide</h3>");
             }
             else
             {
