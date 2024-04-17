@@ -2,7 +2,7 @@
 
 ## Projet réalisé en 1ère année de BTS SIO
 >[!NOTE]
-> Fait par Rayan et Adrien
+> Fait par Rayan et Adrien<br>
 > En classe les jeudi de 13h-17h + beaucoup de temps à la maison
 
 >[!IMPORTANT]
