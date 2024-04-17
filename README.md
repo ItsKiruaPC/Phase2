@@ -1,7 +1,7 @@
 # Atelier-Pro-Site-SIO1
 Voici un site que l'on a concu en atelier pro dans l'environnement du cinéma.</br>
 > [!NOTE]
-> Pour les accès merci de me demander ^^
+> Fait par Rayan et Adrien
 <dl>
 <dt><ins>Il permet de:</ins><dt><ul>
 <li>Consulter les films à l'affiche</li>
